@@ -8,7 +8,6 @@ import { IconComponent } from "./shared/components/icon/icon.component";
 
 @Component({
   selector: "app-root",
-  standalone: true,
   imports: [RouterOutlet, ToastComponent, IconComponent],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.scss",

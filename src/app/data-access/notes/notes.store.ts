@@ -9,7 +9,7 @@ import {
 } from "@ngrx/signals";
 import { Note, newNoteId, textBody } from "./note.model";
 import { NotesSort, sortNotes } from "./notes-sort";
-import { NotesApiService } from "./notes-api.service";
+import { NotesApiStore } from "./notes-api.store";
 import { NotesOfflineService } from "./notes-offline.service";
 import { AuthStore } from "../auth/auth.store";
 
@@ -34,7 +34,7 @@ export const NotesStore = signalStore(
     sortedNotes: computed(() => sortNotes(notes(), sort())),
   })),
   withMethods((store) => {
-    const api = inject(NotesApiService);
+    const api = inject(NotesApiStore);
     const offline = inject(NotesOfflineService);
     const auth = inject(AuthStore);
 

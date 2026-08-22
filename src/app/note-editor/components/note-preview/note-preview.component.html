@@ -54,8 +54,8 @@
         <div class="list">
           @for (item of block.items; track item.lineIndex) {
             <div class="checklist-row" [style.paddingLeft.px]="indentLevel(item.text) * 16"
-                 (click)="toggleChecklist.emit(item.lineIndex)">
-              <input type="checkbox" [checked]="item.checked" (click)="$event.stopPropagation(); toggleChecklist.emit(item.lineIndex)" />
+                 (click)="onToggleChecklist(item.lineIndex)">
+              <input type="checkbox" [checked]="item.checked" (click)="$event.stopPropagation(); onToggleChecklist(item.lineIndex)" />
               <span [class.checked]="item.checked">{{ item.text }}</span>
             </div>
           }

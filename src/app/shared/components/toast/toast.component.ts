@@ -3,7 +3,6 @@ import { ToastStore } from "../../state/toast.store";
 
 @Component({
   selector: "app-toast",
-  standalone: true,
   templateUrl: "./toast.component.html",
   styleUrl: "./toast.component.scss",
 })

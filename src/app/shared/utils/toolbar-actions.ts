@@ -1,5 +1,8 @@
-import { TextState } from "./editor-input-transform";
-import { BlockTextStyle, SelectionFormatting } from "../data-access/notes/note-blocks.model";
+import { TextState } from "./text-state";
+import {
+  BlockTextStyle,
+  SelectionFormatting,
+} from "../../data-access/notes/note-blocks.model";
 
 export interface Selection extends TextState {
   selectionEnd: number; // equals cursor for a collapsed selection

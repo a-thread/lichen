@@ -1,6 +1,7 @@
 import { inject } from "@angular/core";
 import { patchState, signalStore, withHooks, withMethods, withState } from "@ngrx/signals";
 import { AuthService } from "./auth.service";
+import { AuthApiStore } from "./auth-api.store";
 
 type AuthState = {
   userId: string | null;
@@ -19,28 +20,28 @@ export const AuthStore = signalStore(
   { providedIn: "root" },
   withState(initialState),
   withMethods((store) => {
-    const auth = inject(AuthService);
+    const authApi = inject(AuthApiStore);
 
     return {
       async signIn(email: string, password: string): Promise<void> {
-        await auth.signIn(email, password);
+        await authApi.signIn(email, password);
       },
 
       async signUp(email: string, password: string): Promise<void> {
-        await auth.signUp(email, password);
+        await authApi.signUp(email, password);
       },
 
       async sendPasswordReset(email: string): Promise<void> {
-        await auth.sendPasswordReset(email);
+        await authApi.sendPasswordReset(email);
       },
 
       async updatePassword(password: string): Promise<void> {
-        await auth.updatePassword(password);
+        await authApi.updatePassword(password);
         patchState(store, { passwordRecoveryPending: false });
       },
 
       async signOut(): Promise<void> {
-        await auth.signOut();
+        await authApi.signOut();
       },
     };
   }),

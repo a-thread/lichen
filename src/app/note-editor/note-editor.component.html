@@ -1,40 +1,42 @@
 <div class="editor-page">
+  @let vm = store.vm();
+
   <div class="editor">
     <div class="top-bar">
-      @if (screenMode() === 'edit') {
-        <button type="button" class="icon-btn" (click)="requestClose()" aria-label="Close" title="Close">
+      @if (vm.screenMode === ScreenMode.Edit) {
+        <button type="button" class="icon-btn" (click)="store.requestClose()" aria-label="Close" title="Close">
           <app-icon name="close" />
         </button>
       } @else {
-        <button type="button" class="icon-btn" (click)="requestClose()" aria-label="Back" title="Back">
+        <button type="button" class="icon-btn" (click)="store.requestClose()" aria-label="Back" title="Back">
           <app-icon name="back" />
         </button>
       }
 
       <div class="top-bar-actions">
-        @if (screenMode() === 'read') {
-          <button type="button" class="secondary" (click)="exportNote()">
+        @if (vm.screenMode === ScreenMode.Read) {
+          <button type="button" class="secondary" (click)="store.exportNote()">
             <app-icon name="download" [size]="16" /><span>Export</span>
           </button>
           <button type="button" class="accent" (click)="enterEdit()">
             <app-icon name="edit" [size]="16" /><span>Edit</span>
           </button>
         } @else {
-          <button type="button" class="accent" (click)="save()">
+          <button type="button" class="accent" (click)="store.save()">
             <app-icon name="check" [size]="16" /><span>Save</span>
           </button>
         }
       </div>
     </div>
 
-    @if (screenMode() === 'read') {
-      <h1 class="read-title">{{ title() || 'Untitled' }}</h1>
-      <app-note-preview [body]="text()" (toggleChecklist)="toggleChecklistReadOnly($event)" />
+    @if (vm.screenMode === ScreenMode.Read) {
+      <h1 class="read-title">{{ vm.title || 'Untitled' }}</h1>
+      <app-note-preview />
     } @else {
-      <h1 class="visually-hidden">{{ existingNote() ? 'Edit note' : 'New note' }}</h1>
+      <h1 class="visually-hidden">{{ vm.existingNote ? 'Edit note' : 'New note' }}</h1>
       <input
-        [ngModel]="title()"
-        (ngModelChange)="title.set($event)"
+        [ngModel]="vm.title"
+        (ngModelChange)="store.setTitle($event)"
         placeholder="Title"
         class="title-input"
         aria-label="Note title"
@@ -44,31 +46,31 @@
         <div class="mode-switch" role="group" aria-label="View mode">
           <button
             type="button"
-            [class.active]="mode() === 'write'"
-            [attr.aria-pressed]="mode() === 'write'"
-            (click)="mode.set('write')"
+            [class.active]="vm.mode === EditorMode.Write"
+            [attr.aria-pressed]="vm.mode === EditorMode.Write"
+            (click)="store.setMode(EditorMode.Write)"
           >Write</button>
           <button
             type="button"
-            [class.active]="mode() === 'preview'"
-            [attr.aria-pressed]="mode() === 'preview'"
-            (click)="mode.set('preview')"
+            [class.active]="vm.mode === EditorMode.Preview"
+            [attr.aria-pressed]="vm.mode === EditorMode.Preview"
+            (click)="store.setMode(EditorMode.Preview)"
           >Preview</button>
         </div>
       </div>
 
-      @if (mode() === 'write') {
+      @if (vm.mode === EditorMode.Write) {
         <app-formatting-toolbar [selection]="currentSelection()" (applyChange)="applyToolbarResult($event)" />
-        <textarea #bodyInput [ngModel]="text()" (ngModelChange)="onBodyChange($event)"
+        <textarea #bodyInput [ngModel]="vm.text" (ngModelChange)="onBodyChange($event)"
                   (keyup)="onCaretMoved()" (click)="onCaretMoved()"
                   placeholder="Start writing..." rows="16" aria-label="Note body"></textarea>
       } @else {
-        <app-note-preview [body]="text()" (toggleChecklist)="onToggleChecklist($event)" />
+        <app-note-preview />
       }
 
-      @if (existingNote()) {
+      @if (vm.existingNote) {
         <div class="actions">
-          <button (click)="remove()" class="danger">
+          <button (click)="store.remove()" class="danger">
             <app-icon name="delete" [size]="16" /><span>Delete</span>
           </button>
         </div>
@@ -77,12 +79,4 @@
   </div>
 </div>
 
-<app-confirm-dialog
-  [open]="showDiscardDialog()"
-  title="Discard changes?"
-  message="Your changes will be lost."
-  confirmLabel="Discard"
-  cancelLabel="Cancel"
-  (confirmed)="confirmDiscard()"
-  (cancelled)="cancelDiscard()"
-/>
+<app-discard-dialog />

@@ -46,7 +46,6 @@ const ICONS: Record<IconName, LucideIcon> = {
 
 @Component({
   selector: "app-icon",
-  standalone: true,
   imports: [LucideDynamicIcon],
   templateUrl: "./icon.component.html",
   styleUrl: "./icon.component.scss",

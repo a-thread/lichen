@@ -1,10 +1,12 @@
 <div class="list-page">
+  @let vm = store.vm();
+
   <h1 class="visually-hidden">Your notes</h1>
   <div class="toolbar">
     <button
       type="button"
       class="icon-btn"
-      [class.active]="searchOpen()"
+      [class.active]="vm.searchOpen"
       (click)="toggleSearch()"
       aria-label="Search"
       title="Search"
@@ -12,7 +14,7 @@
       <app-icon name="search" />
     </button>
 
-    @if (searchOpen()) {
+    @if (vm.searchOpen) {
       <div class="search-wrap">
         <app-icon name="search" [size]="16" class="search-icon" />
         <input
@@ -21,8 +23,8 @@
           class="search-input"
           placeholder="Search Notes"
           aria-label="Search notes"
-          [ngModel]="search()"
-          (ngModelChange)="search.set($event)"
+          [ngModel]="vm.search"
+          (ngModelChange)="store.setSearch($event)"
         />
       </div>
     } @else {
@@ -43,20 +45,20 @@
         class="icon-btn"
         (click)="toggleMenu()"
         aria-haspopup="true"
-        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-expanded]="vm.menuOpen"
         aria-label="Menu"
         title="Menu"
       >
         <app-icon name="more" />
       </button>
-      @if (menuOpen()) {
+      @if (vm.menuOpen) {
         <div class="menu-scrim" (click)="closeMenu()"></div>
         <div class="menu" (keydown.escape)="closeMenu()">
           <div class="menu-handle"></div>
 
-          <button #firstMenuItem type="button" class="menu-item" (click)="toggleLayout()">
-            <app-icon [name]="layout() === 'grid' ? 'list' : 'grid'" [size]="18" />
-            <span>{{ layout() === "grid" ? "List view" : "Grid view" }}</span>
+          <button #firstMenuItem type="button" class="menu-item" (click)="store.toggleLayout()">
+            <app-icon [name]="vm.layout === ListLayout.Grid ? 'list' : 'grid'" [size]="18" />
+            <span>{{ vm.layout === ListLayout.Grid ? "List view" : "Grid view" }}</span>
           </button>
 
           <div class="menu-divider"></div>
@@ -69,12 +71,12 @@
             <button
               type="button"
               class="menu-item indent"
-              [class.selected]="notesStore.sort() === opt[0]"
-              [attr.aria-current]="notesStore.sort() === opt[0] ? 'true' : null"
-              (click)="onSortChange(opt[0]); closeMenu()"
+              [class.selected]="vm.sort === opt[0]"
+              [attr.aria-current]="vm.sort === opt[0] ? 'true' : null"
+              (click)="store.onSortChange(opt[0]); closeMenu()"
             >
               <span>{{ opt[1] }}</span>
-              @if (notesStore.sort() === opt[0]) {
+              @if (vm.sort === opt[0]) {
                 <app-icon name="check" [size]="18" class="check" />
               }
             </button>
@@ -109,14 +111,14 @@
     />
   </div>
 
-  @if (notesStore.notes().length === 0) {
+  @if (vm.notes.length === 0) {
     <p class="empty">No notes yet — create your first one.</p>
-  } @else if (filteredNotes().length === 0) {
-    <p class="empty">No notes match "{{ search() }}".</p>
+  } @else if (vm.filteredNotes.length === 0) {
+    <p class="empty">No notes match "{{ vm.search }}".</p>
   }
 
-  <ul class="notes-list" [class.grid]="layout() === 'grid'">
-    @for (note of filteredNotes(); track note.id) {
+  <ul class="notes-list" [class.grid]="vm.layout === ListLayout.Grid">
+    @for (note of vm.filteredNotes; track note.id) {
       <li>
         <a [routerLink]="['/note', note.id]">
           <div class="note-row">
@@ -127,7 +129,7 @@
             <button
               type="button"
               class="delete-btn"
-              (click)="deleteNote(note, $event)"
+              (click)="$event.preventDefault(); $event.stopPropagation(); store.deleteNote(note)"
               aria-label="Delete note"
               title="Delete note"
             >

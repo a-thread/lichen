@@ -1,23 +1,24 @@
-import { Component, ElementRef, effect, input, output, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  effect,
+  inject,
+  viewChild,
+} from "@angular/core";
+import { NoteEditorStore } from "../../note-editor.store";
 
 @Component({
-  selector: 'app-confirm-dialog',
-  standalone: true,
-  templateUrl: './confirm-dialog.component.html',
-  styleUrl: './confirm-dialog.component.scss',
+  selector: "app-discard-dialog",
+  templateUrl: "./discard-dialog.component.html",
+  styleUrl: "./discard-dialog.component.scss",
 })
-export class ConfirmDialogComponent {
-  open = input(false);
-  title = input('');
-  message = input('');
-  confirmLabel = input('Confirm');
-  cancelLabel = input('Cancel');
+export class DiscardDialogComponent {
+  private readonly store = inject(NoteEditorStore);
 
-  confirmed = output<void>();
-  cancelled = output<void>();
-
-  private readonly cancelButton = viewChild<ElementRef<HTMLButtonElement>>('cancelButton');
-  private readonly confirmButton = viewChild<ElementRef<HTMLButtonElement>>('confirmButton');
+  private readonly cancelButton =
+    viewChild<ElementRef<HTMLButtonElement>>("cancelButton");
+  private readonly confirmButton =
+    viewChild<ElementRef<HTMLButtonElement>>("confirmButton");
   private previouslyFocused: HTMLElement | null = null;
 
   constructor() {
@@ -30,6 +31,18 @@ export class ConfirmDialogComponent {
         this.previouslyFocused = null;
       }
     });
+  }
+
+  open(): boolean {
+    return this.store.vm().showDiscardDialog;
+  }
+
+  confirm(): void {
+    this.store.confirmDiscard();
+  }
+
+  cancel(): void {
+    this.store.cancelDiscard();
   }
 
   /** Keeps focus cycling between the two dialog buttons — they're the only focusables. */

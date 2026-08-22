@@ -8,7 +8,7 @@ import { ForgotPasswordStore } from "./forgot-password.store";
   imports: [ReactiveFormsModule, RouterLink],
   providers: [ForgotPasswordStore],
   templateUrl: "./forgot-password.component.html",
-  styleUrl: "../auth.shared.scss",
+  styleUrl: "../shared/auth.shared.scss",
 })
 export class ForgotPasswordComponent {
   protected readonly store = inject(ForgotPasswordStore);

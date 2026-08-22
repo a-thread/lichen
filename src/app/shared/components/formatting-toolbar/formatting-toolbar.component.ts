@@ -1,17 +1,16 @@
 import { Component, input, output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { BlockTextStyle } from "../../data-access/notes/note-blocks.model";
+import { BlockTextStyle } from "../../../data-access/notes/note-blocks.model";
 import {
   Selection,
   applyTextStyle,
   detectFormatting,
   toggleBlock,
   toggleInline,
-} from "../toolbar-actions";
+} from "../../utils/toolbar-actions";
 
 @Component({
   selector: "app-formatting-toolbar",
-  standalone: true,
   imports: [FormsModule],
   templateUrl: "./formatting-toolbar.component.html",
   styleUrl: "./formatting-toolbar.component.scss",

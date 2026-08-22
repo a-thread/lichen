@@ -15,7 +15,8 @@
   padding: 1.5rem;
   width: 100%;
   max-width: 360px;
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-primary) 25%, transparent);
+  box-shadow: 0 8px 32px
+    color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
 h2 {
@@ -37,14 +38,15 @@ p {
   gap: 0.5rem;
 }
 
-button.secondary {
-  background: transparent;
-  color: var(--color-text);
-  border: 1px solid var(--color-outline);
-}
-
-button.danger {
-  background: transparent;
-  color: var(--color-error);
-  border: 1px solid var(--color-error);
+button {
+  &.secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-outline);
+  }
+  &.danger {
+    background: transparent;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+  }
 }

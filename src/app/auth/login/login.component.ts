@@ -8,7 +8,7 @@ import { LoginStore } from "./login.store";
   imports: [ReactiveFormsModule, RouterLink],
   providers: [LoginStore],
   templateUrl: "./login.component.html",
-  styleUrl: "../auth.shared.scss",
+  styleUrl: "../shared/auth.shared.scss",
 })
 export class LoginComponent {
   protected readonly store = inject(LoginStore);

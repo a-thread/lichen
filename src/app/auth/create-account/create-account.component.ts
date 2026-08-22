@@ -8,7 +8,7 @@ import { CreateAccountStore } from "./create-account.store";
   imports: [ReactiveFormsModule, RouterLink],
   providers: [CreateAccountStore],
   templateUrl: "./create-account.component.html",
-  styleUrl: "../auth.shared.scss",
+  styleUrl: "../shared/auth.shared.scss",
 })
 export class CreateAccountComponent {
   protected readonly store = inject(CreateAccountStore);

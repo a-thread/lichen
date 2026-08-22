@@ -7,7 +7,7 @@ import { ResetPasswordStore } from "./reset-password.store";
   imports: [ReactiveFormsModule],
   providers: [ResetPasswordStore],
   templateUrl: "./reset-password.component.html",
-  styleUrl: "../auth.shared.scss",
+  styleUrl: "../shared/auth.shared.scss",
 })
 export class ResetPasswordComponent {
   protected readonly store = inject(ResetPasswordStore);

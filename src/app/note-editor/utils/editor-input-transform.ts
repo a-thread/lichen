@@ -1,7 +1,4 @@
-export interface TextState {
-  text: string;
-  cursor: number; // caret position (collapsed selection)
-}
+import { TextState } from "../../shared/utils/text-state";
 
 function removePrefixAt(text: string, startIndex: number, prefix: string): string {
   if (startIndex < text.length && text.slice(startIndex).startsWith(prefix)) {

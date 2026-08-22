@@ -1,11 +1,6 @@
 import { computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import {
-  AbstractControl,
-  NonNullableFormBuilder,
-  ValidationErrors,
-  Validators,
-} from "@angular/forms";
+import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import {
   patchState,
@@ -27,6 +22,7 @@ import {
   tap,
 } from "rxjs";
 import { AuthStore } from "../../data-access/auth/auth.store";
+import { passwordsMatchValidator } from "../shared/passwords-match-validator";
 
 export const ResetPasswordStore = signalStore(
   withState({
@@ -90,11 +86,3 @@ export const ResetPasswordStore = signalStore(
     };
   }),
 );
-
-function passwordsMatchValidator(
-  group: AbstractControl,
-): ValidationErrors | null {
-  const password = group.get("password")?.value;
-  const confirmPassword = group.get("confirmPassword")?.value;
-  return password === confirmPassword ? null : { passwordMismatch: true };
-}
