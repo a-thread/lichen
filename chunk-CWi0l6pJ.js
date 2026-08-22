@@ -1,0 +1,1 @@
+function r(s){return s.get(`password`)?.value===s.get(`confirmPassword`)?.value?null:{passwordMismatch:!0}}export{r as t};
