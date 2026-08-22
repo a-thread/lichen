@@ -1,51 +1,85 @@
 <div class="auth-card">
+  @let vm = store.vm();
+
   <h1>Let's get started</h1>
   <p class="subtitle">Fill in your email and create your free account.</p>
 
-  @if (errorMessage()) {
-    <div class="banner error">{{ errorMessage() }}</div>
+  @if (vm.errorMessage) {
+    <div class="banner error">{{ vm.errorMessage }}</div>
   }
 
-  <label>
-    Email address
-    <input
-      type="email"
-      [ngModel]="email()"
-      (ngModelChange)="email.set($event)"
-      [class.invalid]="email() && !isEmailValid()"
-    />
-  </label>
+  <form [formGroup]="store.form" (ngSubmit)="store.signUp()" novalidate>
+    <label>
+      Email address
+      <input
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        [class.invalid]="store.form.controls.email.value && !vm.isEmailValid"
+        [attr.aria-invalid]="
+          store.form.controls.email.value && !vm.isEmailValid ? true : null
+        "
+      />
+    </label>
 
-  <label>
-    Password
-    <input
-      type="password"
-      [ngModel]="password()"
-      (ngModelChange)="password.set($event)"
-      [class.invalid]="password() && !isPasswordValid()"
-    />
-    @if (password() && !isPasswordValid()) {
-      <span class="field-error">Password must be at least 6 characters</span>
-    }
-  </label>
+    <label>
+      Password
+      <input
+        type="password"
+        formControlName="password"
+        autocomplete="new-password"
+        [class.invalid]="
+          store.form.controls.password.value && !vm.isPasswordValid
+        "
+        [attr.aria-invalid]="
+          store.form.controls.password.value && !vm.isPasswordValid
+            ? true
+            : null
+        "
+        [attr.aria-describedby]="
+          store.form.controls.password.value && !vm.isPasswordValid
+            ? 'password-error'
+            : null
+        "
+      />
+      @if (store.form.controls.password.value && !vm.isPasswordValid) {
+        <span id="password-error" class="field-error"
+          >Password must be at least 6 characters</span
+        >
+      }
+    </label>
 
-  <label>
-    Confirm password
-    <input
-      type="password"
-      [ngModel]="confirmPassword()"
-      (ngModelChange)="confirmPassword.set($event)"
-      (keyup.enter)="signUp()"
-      [class.invalid]="confirmPassword() && !passwordsMatch()"
-    />
-    @if (confirmPassword() && !passwordsMatch()) {
-      <span class="field-error">Passwords do not match</span>
-    }
-  </label>
+    <label>
+      Confirm password
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        autocomplete="new-password"
+        [class.invalid]="
+          store.form.controls.confirmPassword.value && !vm.passwordsMatch
+        "
+        [attr.aria-invalid]="
+          store.form.controls.confirmPassword.value && !vm.passwordsMatch
+            ? true
+            : null
+        "
+        [attr.aria-describedby]="
+          store.form.controls.confirmPassword.value && !vm.passwordsMatch
+            ? 'confirm-password-error'
+            : null
+        "
+      />
+      @if (store.form.controls.confirmPassword.value && !vm.passwordsMatch) {
+        <span id="confirm-password-error" class="field-error"
+          >Passwords do not match</span
+        >
+      }
+    </label>
 
-  <button (click)="signUp()" [disabled]="!canSubmit() || loading()">
-    {{ loading() ? "Creating account…" : "Create account" }}
-  </button>
+    <button type="submit" [disabled]="!vm.canSubmit || vm.loading">
+      {{ vm.loading ? "Creating account…" : "Create account" }}
+    </button>
+  </form>
 
   <div class="links">
     <a routerLink="/login">Back to sign in</a>
