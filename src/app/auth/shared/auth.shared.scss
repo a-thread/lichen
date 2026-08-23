@@ -7,8 +7,9 @@
   gap: 1rem;
   background: var(--color-surface);
   border-radius: var(--radius);
-  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-primary) 8%, transparent),
-              0 8px 24px color-mix(in srgb, var(--color-primary) 6%, transparent);
+  box-shadow:
+    0 1px 3px color-mix(in srgb, var(--color-primary) 8%, transparent),
+    0 8px 24px color-mix(in srgb, var(--color-primary) 6%, transparent);
 
   .mark {
     align-self: center;
@@ -44,26 +45,38 @@
     font-size: 0.9rem;
   }
 
-  label {
+  form {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-on-surface-variant);
-  }
 
-  input.invalid {
-    border-color: var(--color-error);
-
-    &:focus-visible, &:focus {
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 25%, transparent);
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-on-surface-variant);
     }
-  }
 
-  .field-error {
-    color: var(--color-error);
-    font-size: 0.8rem;
+    button {
+      margin-top: 8px;
+    }
+
+    input.invalid {
+      border-color: var(--color-error);
+
+      &:focus-visible,
+      &:focus {
+        box-shadow: 0 0 0 3px
+          color-mix(in srgb, var(--color-error) 25%, transparent);
+      }
+    }
+
+    .field-error {
+      color: var(--color-error);
+      font-size: 0.8rem;
+    }
   }
 
   .banner {
@@ -71,8 +84,14 @@
     border-radius: var(--radius-sm);
     font-size: 0.85rem;
 
-    &.error { background: color-mix(in srgb, var(--color-error) 15%, transparent); color: var(--color-error); }
-    &.info { background: color-mix(in srgb, var(--color-accent) 18%, transparent); color: var(--color-text); }
+    &.error {
+      background: color-mix(in srgb, var(--color-error) 15%, transparent);
+      color: var(--color-error);
+    }
+    &.info {
+      background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+      color: var(--color-text);
+    }
   }
 
   .links {
@@ -80,7 +99,6 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 0.5rem;
 
     a {
       color: var(--color-accent-text);
@@ -88,8 +106,12 @@
       text-decoration: none;
       border-radius: var(--radius-sm);
 
-      &:hover { text-decoration: underline; }
-      &:focus-visible { box-shadow: var(--focus-ring); }
+      &:hover {
+        text-decoration: underline;
+      }
+      &:focus-visible {
+        box-shadow: var(--focus-ring);
+      }
     }
   }
 }
