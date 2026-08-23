@@ -40,24 +40,24 @@ export const routes: Routes = [
       import("./notes-list/notes-list.component").then(
         (m) => m.NotesListComponent,
       ),
-  },
-  {
-    path: "note/new",
-    title: "New note · Lichen",
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import("./note-editor/note-editor.component").then(
-        (m) => m.NoteEditorComponent,
-      ),
-  },
-  {
-    path: "note/:id",
-    title: "Edit note · Lichen",
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import("./note-editor/note-editor.component").then(
-        (m) => m.NoteEditorComponent,
-      ),
+    children: [
+      {
+        path: "note/new",
+        title: "New note · Lichen",
+        loadComponent: () =>
+          import("./note-editor/note-editor.component").then(
+            (m) => m.NoteEditorComponent,
+          ),
+      },
+      {
+        path: "note/:id",
+        title: "Edit note · Lichen",
+        loadComponent: () =>
+          import("./note-editor/note-editor.component").then(
+            (m) => m.NoteEditorComponent,
+          ),
+      },
+    ],
   },
   {
     path: "about",

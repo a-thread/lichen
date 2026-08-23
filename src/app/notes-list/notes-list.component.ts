@@ -1,16 +1,17 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
-import { ListLayout, NotesListStore } from "./notes-list.store";
+import { RouterLink, RouterOutlet } from "@angular/router";
+import { NotesListStore } from "./notes-list.store";
 import { parseBodyText } from "../data-access/notes/note.model";
 import { parseEditorBlocks } from "../data-access/notes/note-blocks-parser";
 import { NotesSort, NOTES_SORT_LABELS } from "../data-access/notes/notes-sort";
 import { titleFromImportFilename } from "../shared/utils/export-format";
 import { IconComponent } from "../shared/components/icon/icon.component";
+import { ListLayout } from "./models/list-layout";
 
 @Component({
   selector: "app-notes-list",
-  imports: [RouterLink, FormsModule, IconComponent],
+  imports: [RouterLink, RouterOutlet, FormsModule, IconComponent],
   providers: [NotesListStore],
   templateUrl: "./notes-list.component.html",
   styleUrl: "./notes-list.component.scss",
@@ -18,6 +19,9 @@ import { IconComponent } from "../shared/components/icon/icon.component";
 export class NotesListComponent {
   protected readonly store = inject(NotesListStore);
   protected readonly ListLayout = ListLayout;
+
+  /** Set while a child route (the note editor) is activated in the outlet below. */
+  protected readonly childActive = signal(false);
 
   fileInput = viewChild<{ nativeElement: HTMLInputElement }>("fileInput");
   searchInput = viewChild<{ nativeElement: HTMLInputElement }>("searchInput");

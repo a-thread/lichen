@@ -14,11 +14,7 @@ import { ToastStore } from "../shared/state/toast.store";
 import { NotesSort } from "../data-access/notes/notes-sort";
 import { formatAllNotesExport } from "../shared/utils/export-format";
 import { downloadTextFile } from "../shared/utils/download-file";
-
-export enum ListLayout {
-  Grid = "grid",
-  List = "list",
-}
+import { ListLayout } from "./models/list-layout";
 
 type NotesListState = {
   search: string;
