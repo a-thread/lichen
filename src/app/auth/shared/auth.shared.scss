@@ -50,47 +50,8 @@
     flex-direction: column;
     gap: 0.35rem;
 
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--color-on-surface-variant);
-    }
-
     button {
       margin-top: 8px;
-    }
-
-    input.invalid {
-      border-color: var(--color-error);
-
-      &:focus-visible,
-      &:focus {
-        box-shadow: 0 0 0 3px
-          color-mix(in srgb, var(--color-error) 25%, transparent);
-      }
-    }
-
-    .field-error {
-      color: var(--color-error);
-      font-size: 0.8rem;
-    }
-  }
-
-  .banner {
-    padding: 0.65rem 0.85rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-
-    &.error {
-      background: color-mix(in srgb, var(--color-error) 15%, transparent);
-      color: var(--color-error);
-    }
-    &.info {
-      background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-      color: var(--color-text);
     }
   }
 

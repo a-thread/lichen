@@ -1,0 +1,19 @@
+<label>
+  {{ label() }}
+  <input
+    [id]="fieldId()"
+    [type]="type()"
+    [formControl]="control()"
+    [autocomplete]="autocomplete()"
+    [class.invalid]="showInvalid()"
+    [attr.aria-invalid]="showInvalid() ? true : null"
+    [attr.aria-describedby]="
+      showInvalid() && errorMessage() ? fieldId() + '-error' : null
+    "
+  />
+  @if (showInvalid() && errorMessage()) {
+    <span [id]="fieldId() + '-error'" class="field-error">{{
+      errorMessage()
+    }}</span>
+  }
+</label>

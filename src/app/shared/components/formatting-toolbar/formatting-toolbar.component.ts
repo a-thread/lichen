@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BlockTextStyle } from "../../../data-access/notes/note-blocks.model";
 import {
@@ -19,9 +19,9 @@ export class FormattingToolbarComponent {
   selection = input.required<Selection>();
   applyChange = output<Selection>();
 
-  formatting() {
-    return detectFormatting(this.selection());
-  }
+  protected readonly formatting = computed(() =>
+    detectFormatting(this.selection()),
+  );
 
   apply(result: Selection): void {
     this.applyChange.emit(result);

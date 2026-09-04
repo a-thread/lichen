@@ -1,7 +1,6 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { NoteEditorStore } from "../../note-editor.store";
 import { ScreenMode } from "../../models/screen-mode";
-import { EditorBlock } from "../../../data-access/notes/note-blocks.model";
 import {
   parseEditorBlocks,
   toggleChecklistLine,
@@ -16,9 +15,9 @@ import { InlineSpan, renderInlineMarkdown } from "../../utils/inline-markdown";
 export class NotePreviewComponent {
   private readonly store = inject(NoteEditorStore);
 
-  blocks(): EditorBlock[] {
-    return parseEditorBlocks(this.store.vm().text);
-  }
+  protected readonly blocks = computed(() =>
+    parseEditorBlocks(this.store.vm().text),
+  );
 
   onToggleChecklist(lineIndex: number): void {
     const newText = toggleChecklistLine(this.store.vm().text, lineIndex);

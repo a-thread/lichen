@@ -79,4 +79,6 @@
   </div>
 </div>
 
-<app-discard-dialog />
+@defer (when vm.showDiscardDialog) {
+  <app-discard-dialog />
+}

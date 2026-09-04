@@ -15,6 +15,7 @@ import { NotesSort } from "../data-access/notes/notes-sort";
 import { formatAllNotesExport } from "../shared/utils/export-format";
 import { downloadTextFile } from "../shared/utils/download-file";
 import { ListLayout } from "./models/list-layout";
+import { previewText } from "./utils/preview-text";
 
 type NotesListState = {
   search: string;
@@ -39,13 +40,20 @@ export const NotesListStore = signalStore(
       vm: computed(() => {
         const query = search().trim().toLowerCase();
         const allNotes = notesStore.sortedNotes();
-        const filteredNotes = query
+        const filtered = query
           ? allNotes.filter(
               (note) =>
                 note.title.toLowerCase().includes(query) ||
                 parseBodyText(note.body).toLowerCase().includes(query),
             )
           : allNotes;
+        // Computed once here (not per template render) since parsing a note's
+        // body for its preview snippet is real work, and this view re-renders
+        // on things unrelated to note content — search input, menu toggling.
+        const filteredNotes = filtered.map((note) => ({
+          note,
+          preview: previewText(note.body),
+        }));
 
         return {
           search: search(),

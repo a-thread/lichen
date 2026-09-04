@@ -57,55 +57,57 @@
       >
         <app-icon name="more" />
       </button>
-      @if (vm.menuOpen) {
-        <div class="menu-scrim" (click)="closeMenu()"></div>
-        <div class="menu" (keydown.escape)="closeMenu()">
-          <div class="menu-handle"></div>
+      @defer (when vm.menuOpen) {
+        @if (vm.menuOpen) {
+          <div class="menu-scrim" (click)="closeMenu()"></div>
+          <div class="menu" (keydown.escape)="closeMenu()">
+            <div class="menu-handle"></div>
 
-          <button #firstMenuItem type="button" class="menu-item" (click)="store.toggleLayout()">
-            <app-icon [name]="vm.layout === ListLayout.Grid ? 'list' : 'grid'" [size]="18" />
-            <span>{{ vm.layout === ListLayout.Grid ? "List view" : "Grid view" }}</span>
-          </button>
-
-          <div class="menu-divider"></div>
-
-          <div class="menu-label">
-            <app-icon name="sort" [size]="16" />
-            <span>Sort notes</span>
-          </div>
-          @for (opt of sortOptions; track opt[0]) {
-            <button
-              type="button"
-              class="menu-item indent"
-              [class.selected]="vm.sort === opt[0]"
-              [attr.aria-current]="vm.sort === opt[0] ? 'true' : null"
-              (click)="store.onSortChange(opt[0]); closeMenu()"
-            >
-              <span>{{ opt[1] }}</span>
-              @if (vm.sort === opt[0]) {
-                <app-icon name="check" [size]="18" class="check" />
-              }
+            <button #firstMenuItem type="button" class="menu-item" (click)="store.toggleLayout()">
+              <app-icon [name]="vm.layout === ListLayout.Grid ? 'list' : 'grid'" [size]="18" />
+              <span>{{ vm.layout === ListLayout.Grid ? "List view" : "Grid view" }}</span>
             </button>
-          }
 
-          <div class="menu-divider"></div>
+            <div class="menu-divider"></div>
 
-          <button type="button" class="menu-item" (click)="triggerImport()">
-            <app-icon name="upload" [size]="18" />
-            <span>Import from text file</span>
-          </button>
-          <button type="button" class="menu-item" (click)="exportAll()">
-            <app-icon name="download" [size]="18" />
-            <span>Export notes</span>
-          </button>
+            <div class="menu-label">
+              <app-icon name="sort" [size]="16" />
+              <span>Sort notes</span>
+            </div>
+            @for (opt of sortOptions; track opt[0]) {
+              <button
+                type="button"
+                class="menu-item indent"
+                [class.selected]="vm.sort === opt[0]"
+                [attr.aria-current]="vm.sort === opt[0] ? 'true' : null"
+                (click)="store.onSortChange(opt[0]); closeMenu()"
+              >
+                <span>{{ opt[1] }}</span>
+                @if (vm.sort === opt[0]) {
+                  <app-icon name="check" [size]="18" class="check" />
+                }
+              </button>
+            }
 
-          <div class="menu-divider"></div>
+            <div class="menu-divider"></div>
 
-          <a routerLink="/about" class="menu-item" (click)="closeMenu()">
-            <app-icon name="info" [size]="18" />
-            <span>About</span>
-          </a>
-        </div>
+            <button type="button" class="menu-item" (click)="triggerImport()">
+              <app-icon name="upload" [size]="18" />
+              <span>Import from text file</span>
+            </button>
+            <button type="button" class="menu-item" (click)="exportAll()">
+              <app-icon name="download" [size]="18" />
+              <span>Export notes</span>
+            </button>
+
+            <div class="menu-divider"></div>
+
+            <a routerLink="/about" class="menu-item" (click)="closeMenu()">
+              <app-icon name="info" [size]="18" />
+              <span>About</span>
+            </a>
+          </div>
+        }
       }
     </div>
     <input
@@ -124,18 +126,18 @@
   }
 
   <ul class="notes-list" [class.grid]="vm.layout === ListLayout.Grid">
-    @for (note of vm.filteredNotes; track note.id) {
+    @for (item of vm.filteredNotes; track item.note.id) {
       <li>
-        <a [routerLink]="['/note', note.id]">
+        <a [routerLink]="['/note', item.note.id]">
           <div class="note-row">
             <div class="note-text">
-              <strong>{{ note.title || "Untitled" }}</strong>
-              <p>{{ preview(note.body) }}</p>
+              <strong>{{ item.note.title || "Untitled" }}</strong>
+              <p>{{ item.preview }}</p>
             </div>
             <button
               type="button"
               class="delete-btn"
-              (click)="$event.preventDefault(); $event.stopPropagation(); store.deleteNote(note)"
+              (click)="$event.preventDefault(); $event.stopPropagation(); store.deleteNote(item.note)"
               aria-label="Delete note"
               title="Delete note"
             >

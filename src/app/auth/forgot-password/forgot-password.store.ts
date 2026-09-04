@@ -37,17 +37,27 @@ export const ForgotPasswordStore = signalStore(
     return {
       form,
       formStatus: toSignal(form.statusChanges, { initialValue: form.status }),
+      // Re-run `vm` on every keystroke, not just VALID/INVALID transitions —
+      // see the same note in login.store.ts / create-account.store.ts.
+      formValue: toSignal(form.valueChanges, {
+        initialValue: form.getRawValue(),
+      }),
     };
   }),
-  withComputed(({ form, formStatus, loading, errorMessage, sent }) => ({
-    vm: computed(() => ({
-      loading: loading(),
-      errorMessage: errorMessage(),
-      sent: sent(),
-      isEmailValid: !form.controls.email.errors,
-      canSubmit: formStatus() === "VALID",
-    })),
-  })),
+  withComputed(
+    ({ form, formStatus, formValue, loading, errorMessage, sent }) => ({
+      vm: computed(() => {
+        formValue();
+        return {
+          loading: loading(),
+          errorMessage: errorMessage(),
+          sent: sent(),
+          isEmailValid: !form.controls.email.errors,
+          canSubmit: formStatus() === "VALID",
+        };
+      }),
+    }),
+  ),
   withMethods((store) => {
     const auth = inject(AuthStore);
 

@@ -1,0 +1,9 @@
+@if (message()) {
+  <div
+    class="banner"
+    [class.error]="variant() === 'error'"
+    [class.info]="variant() === 'info'"
+  >
+    {{ message() }}
+  </div>
+}

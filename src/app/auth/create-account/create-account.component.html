@@ -4,77 +4,37 @@
   <h1>Let's get started</h1>
   <p class="subtitle">Fill in your email and create your free account.</p>
 
-  @if (vm.errorMessage) {
-    <div class="banner error">{{ vm.errorMessage }}</div>
-  }
+  <app-auth-banner variant="error" [message]="vm.errorMessage" />
 
   <form [formGroup]="store.form" (ngSubmit)="store.signUp()" novalidate>
-    <label>
-      Email address
-      <input
-        type="email"
-        formControlName="email"
-        autocomplete="email"
-        [class.invalid]="store.form.controls.email.value && !vm.isEmailValid"
-        [attr.aria-invalid]="
-          store.form.controls.email.value && !vm.isEmailValid ? true : null
-        "
-      />
-    </label>
+    <app-form-field
+      fieldId="email"
+      label="Email address"
+      type="email"
+      autocomplete="email"
+      [control]="store.form.controls.email"
+      [invalid]="!vm.isEmailValid"
+    />
 
-    <label>
-      Password
-      <input
-        type="password"
-        formControlName="password"
-        autocomplete="new-password"
-        [class.invalid]="
-          store.form.controls.password.value && !vm.isPasswordValid
-        "
-        [attr.aria-invalid]="
-          store.form.controls.password.value && !vm.isPasswordValid
-            ? true
-            : null
-        "
-        [attr.aria-describedby]="
-          store.form.controls.password.value && !vm.isPasswordValid
-            ? 'password-error'
-            : null
-        "
-      />
-      @if (store.form.controls.password.value && !vm.isPasswordValid) {
-        <span id="password-error" class="field-error"
-          >Password must be at least 6 characters</span
-        >
-      }
-    </label>
+    <app-form-field
+      fieldId="password"
+      label="Password"
+      type="password"
+      autocomplete="new-password"
+      [control]="store.form.controls.password"
+      [invalid]="!vm.isPasswordValid"
+      errorMessage="Password must be at least 6 characters"
+    />
 
-    <label>
-      Confirm password
-      <input
-        type="password"
-        formControlName="confirmPassword"
-        autocomplete="new-password"
-        [class.invalid]="
-          store.form.controls.confirmPassword.value && !vm.passwordsMatch
-        "
-        [attr.aria-invalid]="
-          store.form.controls.confirmPassword.value && !vm.passwordsMatch
-            ? true
-            : null
-        "
-        [attr.aria-describedby]="
-          store.form.controls.confirmPassword.value && !vm.passwordsMatch
-            ? 'confirm-password-error'
-            : null
-        "
-      />
-      @if (store.form.controls.confirmPassword.value && !vm.passwordsMatch) {
-        <span id="confirm-password-error" class="field-error"
-          >Passwords do not match</span
-        >
-      }
-    </label>
+    <app-form-field
+      fieldId="confirm-password"
+      label="Confirm password"
+      type="password"
+      autocomplete="new-password"
+      [control]="store.form.controls.confirmPassword"
+      [invalid]="!vm.passwordsMatch"
+      errorMessage="Passwords do not match"
+    />
 
     <button type="submit" [disabled]="!vm.canSubmit || vm.loading">
       {{ vm.loading ? "Creating account…" : "Create account" }}

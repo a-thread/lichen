@@ -2,8 +2,6 @@ import { Component, inject, signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { NotesListStore } from "./notes-list.store";
-import { parseBodyText } from "../data-access/notes/note.model";
-import { parseEditorBlocks } from "../data-access/notes/note-blocks-parser";
 import { NotesSort, NOTES_SORT_LABELS } from "../data-access/notes/notes-sort";
 import { titleFromImportFilename } from "../shared/utils/export-format";
 import { IconComponent } from "../shared/components/icon/icon.component";
@@ -34,19 +32,6 @@ export class NotesListComponent {
     NotesSort,
     string,
   ][];
-
-  preview(body: string): string {
-    const text = parseBodyText(body);
-    const firstBlock = parseEditorBlocks(text)[0];
-    if (!firstBlock) return "";
-    if (firstBlock.type === "text" || firstBlock.type === "heading")
-      return firstBlock.text.slice(0, 80);
-    if (firstBlock.type === "checklist" || firstBlock.type === "numberedList")
-      return firstBlock.items[0]?.text.slice(0, 80) ?? "";
-    if (firstBlock.type === "bulletList")
-      return firstBlock.items[0]?.slice(0, 80) ?? "";
-    return text.slice(0, 80);
-  }
 
   toggleSearch(): void {
     if (this.store.searchOpen()) {

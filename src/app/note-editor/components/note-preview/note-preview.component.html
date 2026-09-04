@@ -42,7 +42,7 @@
       }
       @case ('numberedList') {
         <div class="list">
-          @for (item of block.items; track $index) {
+          @for (item of block.items; track item.lineIndex) {
             <div class="list-row" [style.paddingLeft.px]="indentLevel(item.text) * 16">
               <span class="marker">{{ extractNumber(item.text) }}.</span>
               <span>{{ stripNumberPrefix(item.text) }}</span>

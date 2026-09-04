@@ -46,17 +46,23 @@ export const CreateAccountStore = signalStore(
     return {
       form,
       formStatus: toSignal(form.statusChanges, { initialValue: form.status }),
+      formValue: toSignal(form.valueChanges, {
+        initialValue: form.getRawValue(),
+      }),
     };
   }),
-  withComputed(({ form, formStatus, loading, errorMessage }) => ({
-    vm: computed(() => ({
-      loading: loading(),
-      errorMessage: errorMessage(),
-      isEmailValid: !form.controls.email.errors,
-      isPasswordValid: !form.controls.password.errors,
-      passwordsMatch: !form.errors?.["passwordMismatch"],
-      canSubmit: formStatus() === "VALID",
-    })),
+  withComputed(({ form, formStatus, formValue, loading, errorMessage }) => ({
+    vm: computed(() => {
+      formValue();
+      return {
+        loading: loading(),
+        errorMessage: errorMessage(),
+        isEmailValid: !form.controls.email.errors,
+        isPasswordValid: !form.controls.password.errors,
+        passwordsMatch: !form.errors?.["passwordMismatch"],
+        canSubmit: formStatus() === "VALID",
+      };
+    }),
   })),
   withMethods((store) => {
     const auth = inject(AuthStore);

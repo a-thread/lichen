@@ -38,15 +38,27 @@ export const LoginStore = signalStore(
     return {
       form,
       formStatus: toSignal(form.statusChanges, { initialValue: form.status }),
+      // Re-run `vm` on every keystroke, not just VALID/INVALID transitions —
+      // the group's overall status string can stay "INVALID" (e.g. because
+      // password is still too short) while email's own validity changes
+      // underneath, and `form.controls.email.errors` below is a plain
+      // property read, not a signal, so nothing else would trigger a
+      // recompute.
+      formValue: toSignal(form.valueChanges, {
+        initialValue: form.getRawValue(),
+      }),
     };
   }),
-  withComputed(({ form, formStatus, loading, errorMessage }) => ({
-    vm: computed(() => ({
-      loading: loading(),
-      errorMessage: errorMessage(),
-      isEmailValid: !form.controls.email.errors,
-      canSubmit: formStatus() === "VALID",
-    })),
+  withComputed(({ form, formStatus, formValue, loading, errorMessage }) => ({
+    vm: computed(() => {
+      formValue();
+      return {
+        loading: loading(),
+        errorMessage: errorMessage(),
+        isEmailValid: !form.controls.email.errors,
+        canSubmit: formStatus() === "VALID",
+      };
+    }),
   })),
   withMethods((store) => {
     const auth = inject(AuthStore);
