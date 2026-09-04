@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1787483414281,
-  "index": "/lichen-web/index.html",
+  "timestamp": 1788542400794,
+  "index": "/lichen/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,22 +11,22 @@
         "ignoreVary": true
       },
       "urls": [
-        "/lichen-web/chunk-B1NI7uGi.js",
-        "/lichen-web/chunk-B8VvujbW.js",
-        "/lichen-web/chunk-BHxuPB2u.js",
-        "/lichen-web/chunk-BMTqu-dU.js",
-        "/lichen-web/chunk-BZFkaYfK.js",
-        "/lichen-web/chunk-C7O9cJJo.js",
-        "/lichen-web/chunk-CCbEFtQ7.js",
-        "/lichen-web/chunk-CHTC4e8c.js",
-        "/lichen-web/chunk-CJDrvWfK.js",
-        "/lichen-web/chunk-CWi0l6pJ.js",
-        "/lichen-web/chunk-CkPbYkpx.js",
-        "/lichen-web/chunk-Ddch6RAD.js",
-        "/lichen-web/index.html",
-        "/lichen-web/main-ALJ77VQL.js",
-        "/lichen-web/manifest.webmanifest",
-        "/lichen-web/styles-IGRJ7RU4.css"
+        "/lichen/chunk-BHxuPB2u.js",
+        "/lichen/chunk-BwkYAMz1.js",
+        "/lichen/chunk-CCbEFtQ7.js",
+        "/lichen/chunk-CHTC4e8c.js",
+        "/lichen/chunk-CWi0l6pJ.js",
+        "/lichen/chunk-CelSvefX.js",
+        "/lichen/chunk-ChWyjHhh.js",
+        "/lichen/chunk-DGYciwuX.js",
+        "/lichen/chunk-Ddch6RAD.js",
+        "/lichen/chunk-DdeDnO7E.js",
+        "/lichen/chunk-DgbqL642.js",
+        "/lichen/chunk-DzrveKqh.js",
+        "/lichen/index.html",
+        "/lichen/main-J4EHEHFM.js",
+        "/lichen/manifest.webmanifest",
+        "/lichen/styles-IGRJ7RU4.css"
       ],
       "patterns": []
     },
@@ -38,38 +38,38 @@
         "ignoreVary": true
       },
       "urls": [
-        "/lichen-web/images/ic_lichen_mark.png",
-        "/lichen-web/images/icons/icon-180.png",
-        "/lichen-web/images/icons/icon-192.png",
-        "/lichen-web/images/icons/icon-512-maskable.png",
-        "/lichen-web/images/icons/icon-512.png"
+        "/lichen/images/ic_lichen_mark.png",
+        "/lichen/images/icons/icon-180.png",
+        "/lichen/images/icons/icon-192.png",
+        "/lichen/images/icons/icon-512-maskable.png",
+        "/lichen/images/icons/icon-512.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/lichen-web/chunk-B1NI7uGi.js": "de44230f653b7426478509bd2412cd014416af5b",
-    "/lichen-web/chunk-B8VvujbW.js": "378db6a35bb1306741fe1bde8ae5477b95d681a7",
-    "/lichen-web/chunk-BHxuPB2u.js": "4b14a3350ef29b0f7eac3fd5c17d93de8aebe4fb",
-    "/lichen-web/chunk-BMTqu-dU.js": "7dd069eab8425b073855795879e7b0d750b91232",
-    "/lichen-web/chunk-BZFkaYfK.js": "098143d81bbe9439ad3a037b2a22d208e17ae2de",
-    "/lichen-web/chunk-C7O9cJJo.js": "8f5c76ff17450ec16268fa9ba8f72675409be803",
-    "/lichen-web/chunk-CCbEFtQ7.js": "ba50d99dc3d6c0c620aa3aa408ce5241376f226f",
-    "/lichen-web/chunk-CHTC4e8c.js": "aefead2f46208871bec29ea68867496d3e680811",
-    "/lichen-web/chunk-CJDrvWfK.js": "88a0bc4d2df1889411505bceff061da020eb5a67",
-    "/lichen-web/chunk-CWi0l6pJ.js": "d8b973d30988f867f5707a1e1eb49921d66675d6",
-    "/lichen-web/chunk-CkPbYkpx.js": "d7ae6a749cee20970a7cab51ff4c72d4ad01e181",
-    "/lichen-web/chunk-Ddch6RAD.js": "d38775ac47965c2e22c0ddcaf519cb03255e10f8",
-    "/lichen-web/images/ic_lichen_mark.png": "088f46002f8e58ae7fa15d6383fe7e8d60417ec5",
-    "/lichen-web/images/icons/icon-180.png": "14a999fb6571f1aea8283d9e1cc6139975a74c0a",
-    "/lichen-web/images/icons/icon-192.png": "8ebfe0d989ed318727db757741d2897df5f4c092",
-    "/lichen-web/images/icons/icon-512-maskable.png": "9674304c827bef254c89ef30fa8c311bdf176de3",
-    "/lichen-web/images/icons/icon-512.png": "a56b5e9cfed97027afd5063a70d7e40797d304ce",
-    "/lichen-web/index.html": "4b4072b4a050bae60ea4a9b80472496def3f5179",
-    "/lichen-web/main-ALJ77VQL.js": "306da8e0609911645e107c12e8a1dd6b9121b1c5",
-    "/lichen-web/manifest.webmanifest": "84f853c7ec923cb5a80c354f4c6b9be54a89d351",
-    "/lichen-web/styles-IGRJ7RU4.css": "ec7c457ff19a39c422b139e7d41ca5db21bebb06"
+    "/lichen/chunk-BHxuPB2u.js": "4b14a3350ef29b0f7eac3fd5c17d93de8aebe4fb",
+    "/lichen/chunk-BwkYAMz1.js": "c195ef9f7dc2bd5185e2f13bb6b50dd98c2a2c7f",
+    "/lichen/chunk-CCbEFtQ7.js": "ba50d99dc3d6c0c620aa3aa408ce5241376f226f",
+    "/lichen/chunk-CHTC4e8c.js": "aefead2f46208871bec29ea68867496d3e680811",
+    "/lichen/chunk-CWi0l6pJ.js": "d8b973d30988f867f5707a1e1eb49921d66675d6",
+    "/lichen/chunk-CelSvefX.js": "fbcad7362e4e67bb1d62ddb5799958d8b9a5a88b",
+    "/lichen/chunk-ChWyjHhh.js": "db17aed1f4ff6154ab92d71a843feffaee96ec3f",
+    "/lichen/chunk-DGYciwuX.js": "156239151b054e5dfd083787ffc7492a723f38bb",
+    "/lichen/chunk-Ddch6RAD.js": "d38775ac47965c2e22c0ddcaf519cb03255e10f8",
+    "/lichen/chunk-DdeDnO7E.js": "a35aa14430867ee9bcf3881ba61302551c4c51bf",
+    "/lichen/chunk-DgbqL642.js": "38b1818ad40448dfb13565a0b10dd616bd1b4d41",
+    "/lichen/chunk-DzrveKqh.js": "a75a477d626015e78f037f64bbe110415e1bae06",
+    "/lichen/images/ic_lichen_mark.png": "088f46002f8e58ae7fa15d6383fe7e8d60417ec5",
+    "/lichen/images/icons/icon-180.png": "14a999fb6571f1aea8283d9e1cc6139975a74c0a",
+    "/lichen/images/icons/icon-192.png": "8ebfe0d989ed318727db757741d2897df5f4c092",
+    "/lichen/images/icons/icon-512-maskable.png": "9674304c827bef254c89ef30fa8c311bdf176de3",
+    "/lichen/images/icons/icon-512.png": "a56b5e9cfed97027afd5063a70d7e40797d304ce",
+    "/lichen/index.html": "e0116abbcdda528002a46a8f3c75c44c79bb3b00",
+    "/lichen/main-J4EHEHFM.js": "77b888e7506e837578bdaf9873e6b2d828a6a875",
+    "/lichen/manifest.webmanifest": "84f853c7ec923cb5a80c354f4c6b9be54a89d351",
+    "/lichen/styles-IGRJ7RU4.css": "ec7c457ff19a39c422b139e7d41ca5db21bebb06"
   },
   "navigationUrls": [
     {
