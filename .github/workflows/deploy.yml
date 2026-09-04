@@ -27,10 +27,10 @@ jobs:
           sed -i "s#YOUR_SUPABASE_ANON_KEY#${{ secrets.SUPABASE_ANON_KEY }}#" src/environments/environment.ts
 
       - name: Build Project
-        run: npm run build -- --base-href=/lichen-web/
+        run: npm run build -- --base-href=/lichen/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/lichen-web/browser
+          publish_dir: ./dist/lichen/browser

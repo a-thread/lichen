@@ -1,5 +1,5 @@
 {
-  "name": "lichen-web",
+  "name": "lichen",
   "version": "0.2.0",
   "scripts": {
     "dev": "ng serve",

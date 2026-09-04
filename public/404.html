@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -8,13 +8,13 @@
       // https://github.com/rafgraph/spa-github-pages
       //
       // GitHub Pages has no server-side rewrites, so a direct or refreshed hit
-      // on a client-side route (e.g. /lichen-web/note/123) 404s because no such
+      // on a client-side route (e.g. /lichen/note/123) 404s because no such
       // file exists. This page re-encodes the path into a query string and
       // redirects to the app's index.html, which restores the real path (see
       // the matching script in index.html) before Angular's router reads it.
       //
       // pathSegmentsToKeep must match the number of segments in the deployed
-      // base path — this app is served under /lichen-web/, so 1.
+      // base path — this app is served under /lichen/, so 1.
       var pathSegmentsToKeep = 1;
 
       var l = window.location;

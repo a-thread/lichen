@@ -4,7 +4,7 @@
 
 This is the web companion to [Lichen for Android](#origin), sharing the same Supabase backend and data model, rebuilt from the ground up in Angular as a demonstration of the same product on a different stack.
 
-> 🔗 **Live app:** _[https://a-thread.github.io/lichen-web/#/](https://a-thread.github.io/lichen-web/#/)_
+> 🔗 **Live app:** _[https://a-thread.github.io/lichen/#/](https://a-thread.github.io/lichen/#/)_
 
 ---
 

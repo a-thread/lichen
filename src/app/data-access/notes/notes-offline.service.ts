@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { IDBPDatabase, openDB } from "idb";
 import { Note, PendingChange } from "./note.model";
 
-const DB_NAME = "lichen-web";
+const DB_NAME = "lichen";
 const DB_VERSION = 1;
 const NOTES_STORE = "notes";
 const QUEUE_STORE = "pending-changes";
@@ -35,7 +35,10 @@ export class NotesOfflineService {
   async clearAll(): Promise<void> {
     const db = await this.dbPromise;
     const tx = db.transaction([NOTES_STORE, QUEUE_STORE], "readwrite");
-    await Promise.all([tx.objectStore(NOTES_STORE).clear(), tx.objectStore(QUEUE_STORE).clear()]);
+    await Promise.all([
+      tx.objectStore(NOTES_STORE).clear(),
+      tx.objectStore(QUEUE_STORE).clear(),
+    ]);
     await tx.done;
   }
 
