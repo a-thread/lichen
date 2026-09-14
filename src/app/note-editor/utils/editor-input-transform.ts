@@ -1,20 +1,5 @@
 import { TextState } from "../../shared/utils/text-state";
 
-function removePrefixAt(text: string, startIndex: number, prefix: string): string {
-  if (startIndex < text.length && text.slice(startIndex).startsWith(prefix)) {
-    return text.slice(0, startIndex) + text.slice(startIndex + prefix.length);
-  }
-  return text;
-}
-
-function removeRegexPrefixAt(text: string, startIndex: number, regex: RegExp): string {
-  const match = regex.exec(text.slice(startIndex));
-  if (match && match.index === 0) {
-    return text.slice(0, startIndex) + text.slice(startIndex + match[0].length);
-  }
-  return text;
-}
-
 function insertAfterCursor(text: string, cursor: number, insertion: string): TextState {
   const updated = text.slice(0, cursor) + insertion + text.slice(cursor);
   return { text: updated, cursor: cursor + insertion.length };
@@ -65,17 +50,25 @@ export function transformEditorInput(oldState: TextState, newState: TextState): 
 
   const didDelete = newText.length < oldText.length;
   if (didDelete) {
-    const nlBefore = newText.lastIndexOf('\n', Math.max(cursor - 1, 0));
-    const lineStart = nlBefore === -1 ? 0 : nlBefore + 1;
-    const beforeCursor = lineStart <= cursor ? newText.slice(lineStart, cursor) : '';
-    const trimmed = beforeCursor.trimStart();
+    // Check the marker against the *pre-edit* line/cursor: the native edit has already
+    // consumed one character (usually the marker's trailing space), so matching against
+    // newText here would never see the full marker and would leave a stray character behind.
+    const oldCursor = Math.min(Math.max(oldState.cursor, 0), oldText.length);
+    const oldNlBefore = oldText.lastIndexOf('\n', Math.max(oldCursor - 1, 0));
+    const oldLineStart = oldNlBefore === -1 ? 0 : oldNlBefore + 1;
+    const oldBeforeCursor = oldLineStart <= oldCursor ? oldText.slice(oldLineStart, oldCursor) : '';
+    const oldTrimmed = oldBeforeCursor.trimStart();
 
-    if (trimmed === '-' || trimmed === '') {
-      let updated = removePrefixAt(newText, lineStart, '- [ ] ');
-      updated = removePrefixAt(updated, lineStart, '- [x] ');
-      updated = removePrefixAt(updated, lineStart, '- ');
-      updated = removeRegexPrefixAt(updated, lineStart, /^\d+\.\s/);
-      return { text: updated, cursor: lineStart };
+    const wasEmptyMarker =
+      oldTrimmed === '- ' ||
+      oldTrimmed === '- [ ] ' ||
+      oldTrimmed === '- [x] ' ||
+      /^\d+\.\s$/.test(oldTrimmed);
+
+    if (wasEmptyMarker) {
+      const nlBefore = newText.lastIndexOf('\n', Math.max(cursor - 1, 0));
+      const lineStart = nlBefore === -1 ? 0 : nlBefore + 1;
+      return { text: newText.slice(0, lineStart) + newText.slice(cursor), cursor: lineStart };
     }
   }
 
