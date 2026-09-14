@@ -43,7 +43,7 @@ export function transformEditorInput(oldState: TextState, newState: TextState): 
 
     const numberMatch = /^(\d+)\.\s/.exec(trimmed);
     if (numberMatch) {
-      const next = (parseInt(numberMatch[1], 10) || 1) + 1;
+      const next = parseInt(numberMatch[1], 10) + 1;
       return insertAfterCursor(newText, cursor, `${indent}${next}. `);
     }
   }
