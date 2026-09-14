@@ -1,4 +1,10 @@
-import { Component, inject, viewChild } from "@angular/core";
+import {
+  Component,
+  Injector,
+  afterNextRender,
+  inject,
+  viewChild,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NoteEditorStore } from "./note-editor.store";
 import { transformEditorInput } from "./utils/editor-input-transform";
@@ -27,6 +33,7 @@ export class NoteEditorComponent {
   protected readonly store = inject(NoteEditorStore);
   protected readonly EditorMode = EditorMode;
   protected readonly ScreenMode = ScreenMode;
+  private readonly injector = inject(Injector);
 
   bodyInput = viewChild<{ nativeElement: HTMLTextAreaElement }>("bodyInput");
   private caret = 0;
@@ -49,9 +56,14 @@ export class NoteEditorComponent {
     );
     this.store.setText(result.text);
     this.caret = result.cursor;
-    queueMicrotask(() => {
-      el?.setSelectionRange(result.cursor, result.cursor);
-    });
+    if (el) {
+      // Write the transformed text and selection synchronously — change detection
+      // (zoneless) re-renders on the next animation frame, which is too late: restoring
+      // the cursor there would race the framework's own write to `el.value` and lose,
+      // since a differing value resets the caret to the end.
+      el.value = result.text;
+      el.setSelectionRange(result.cursor, result.cursor);
+    }
   }
 
   currentSelection(): Selection {
@@ -65,20 +77,27 @@ export class NoteEditorComponent {
     this.store.setText(result.text);
     this.caret = result.cursor;
     const el = this.nativeTextarea();
-    queueMicrotask(() => {
-      el?.focus();
-      el?.setSelectionRange(result.cursor, result.selectionEnd);
-    });
+    if (el) {
+      el.value = result.text;
+      el.focus();
+      el.setSelectionRange(result.cursor, result.selectionEnd);
+    }
   }
 
   enterEdit(): void {
     this.store.enterEdit();
-    const el = this.nativeTextarea();
-    queueMicrotask(() => {
-      const end = this.store.text().length;
-      el?.focus();
-      el?.setSelectionRange(end, end);
-      this.caret = end;
-    });
+    // The textarea doesn't exist yet — it's behind an @if that flips on this same
+    // update — so this has to wait for Angular to actually commit the DOM, not just
+    // a microtask (which can still run before the framework's own render pass).
+    afterNextRender(
+      () => {
+        const el = this.nativeTextarea();
+        const end = this.store.text().length;
+        el?.focus();
+        el?.setSelectionRange(end, end);
+        this.caret = end;
+      },
+      { injector: this.injector },
+    );
   }
 }
