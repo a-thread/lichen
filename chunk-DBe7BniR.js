@@ -1,4 +1,4 @@
-import{n as ge}from"./main-HJTR6ADF.js";function c(e){return{filename:`${(e.title.trim()||`Untitled`).replace(/[\\/:*?"<>|]/g,`_`)}.txt`,content:ge(e.body)}}function a(e){let t=`# Lichen Notes Export
+import{n as ge}from"./main-B2HGIVX3.js";function c(e){return{filename:`${(e.title.trim()||`Untitled`).replace(/[\\/:*?"<>|]/g,`_`)}.txt`,content:ge(e.body)}}function a(e){let t=`# Lichen Notes Export
 # version: 1
 
 `;for(let n of e)t+=`---
